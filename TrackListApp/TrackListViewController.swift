@@ -41,6 +41,13 @@ class TrackListViewController: UITableViewController {
         80
     }
     */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let track = trackList[indexPath.row]
+        performSegue(withIdentifier: "showDetails", sender: track)
+    }
 
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
     }
@@ -49,9 +56,9 @@ class TrackListViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let trackDetailsVC = segue.destination as? TrackDetailsViewController else { return }
         
-        guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        let track = trackList[indexPath.row]
+//        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+//        let track = trackList[indexPath.row]
         
-        trackDetailsVC.track = track
+        trackDetailsVC.track = sender as? Track 
     }
 }
